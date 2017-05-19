@@ -53,6 +53,10 @@ public class main
             "                                          "
 
       };
+      System.out.println(sImageIn.length);
+      System.out.println(sImageIn[0].length());
+      System.out.println(sImageIn[0]);
+      
       System.out.println(sImageIn[5]);
       System.out.println(sImageIn_2);
 
