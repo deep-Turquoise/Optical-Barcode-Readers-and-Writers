@@ -3,6 +3,9 @@ import barcodePack.BarcodeIO;
 
 public class DataMatrix implements BarcodeIO
 {
+   public static final char BLACK_CHAR = '*';
+   public static final char WHITE_CHAR = ' ';
+   
    public DataMatrix()
    {
       

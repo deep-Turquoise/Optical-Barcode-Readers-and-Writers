@@ -1,10 +1,13 @@
 package barcodePack;
 
-public class BarcodeImage
+public class BarcodeImage implements Cloneable
 {
    public static final int MAX_HEIGHT = 30;
    public static final int MAX_WIDTH = 65;
    private boolean[][] image_data;
+   
+   public static final char BLACK_CHAR = '*';
+   public static final char WHITE_CHAR = ' ';
    
    public BarcodeImage()
    {
@@ -18,17 +21,47 @@ public class BarcodeImage
    
    public BarcodeImage(String[] sImageIn)
    {
-    for (int i = 0; i < sImageIn.length; i++)
-    {
-       for (int k = 0; k < sImageIn[0].length(); k++)
-       {
-          
-       }
-    }
+      // Initialize the array to all 'false'
+      this(); // this calls the other method, so the array will all be false.
+      
+      // get dimensions of array.
+      int height = sImageIn.length;
+      int width  = sImageIn[0].length();
+      
+      int top = 0;
+      int left = 0;  
+      
+      // get the top left corner of the image.
+      for (int i = 0; i < height; i++)
+      {
+         for (int k = 0; k < width; k++)
+         {
+            if (sImageIn[i].charAt(k) == BLACK_CHAR)
+            {
+               top = k;
+               left = i;
+               break; // end this loop we have what we want.
+            }
+         }
+      }
+      
+      // iterate and set the boolean array
+      for (int i = 0; i < 10; i++)
+      {
+         for (int k = 0; k < width - left ; k++ )
+         {
+            if (sImageIn[i + top].charAt(k + left) == BLACK_CHAR)
+            {
+               image_data[i+20][k] = true;
+            }
+         }
+      }
+      int test;
+       test = 1;
    }
    
-   public void doSomething(BarcodeIO foo0)
+   public void doSomething(BarcodeIO foo)
    {
-      
+      foo.readText(" ");
    }
 }

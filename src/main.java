@@ -62,6 +62,8 @@ public class main
 
       BarcodeImage bc = new BarcodeImage(sImageIn);
       DataMatrix dm = new DataMatrix(bc);
+      
+      bc.doSomething(dm);
      
       // First secret message
       dm.translateImageToText();

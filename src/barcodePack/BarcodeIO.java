@@ -3,15 +3,15 @@ import barcodePack.BarcodeImage;
 
 public interface BarcodeIO
 {
-   public abstract boolean scan(BarcodeImage bc);
+   public boolean scan(BarcodeImage bc);
 
-   public abstract boolean readText(String text);
+   public boolean readText(String text);
 
-   public abstract boolean generateImageFromText();
+   public boolean generateImageFromText();
 
-   public abstract boolean translateImageToText();
+   public boolean translateImageToText();
 
-   public abstract void displayTextToConsole();
+   public void displayTextToConsole();
 
-   public abstract void displayImageToConsole();
+   public void displayImageToConsole();
 }
