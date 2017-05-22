@@ -64,4 +64,24 @@ public class BarcodeImage implements Cloneable
    {
       foo.readText(" ");
    }
+   
+   public boolean getPixel(int row, int col)
+   {
+      if(col <= MAX_HEIGHT && row <= MAX_WIDTH)
+      {
+         if(image_data[col][row] == true) { return true; }
+         else { return false; }
+      }
+      else { return false; }
+   }
+   
+   public boolean setPixel(int row, int col, boolean value)
+   {
+      if(col <= MAX_HEIGHT && row <= MAX_WIDTH)
+      {
+         image_data[col][row] = value;
+         return true;
+      }
+      else { return false; }
+   }
 }
