@@ -5,10 +5,10 @@ public class BarcodeImage implements Cloneable
    public static final int MAX_HEIGHT = 30;
    public static final int MAX_WIDTH = 65;
    private boolean[][] image_data;
-   
+
    public static final char BLACK_CHAR = '*';
    public static final char WHITE_CHAR = ' ';
-   
+
    public BarcodeImage()
    {
       image_data = new boolean[MAX_HEIGHT][MAX_WIDTH];
@@ -18,21 +18,21 @@ public class BarcodeImage implements Cloneable
             image_data[i][k] = false;
       }
    }
-   
+
    public BarcodeImage(String[] str_data)
    {
       // Initialize the array to all 'false'
       this(); // this calls the other method, so the array will all be false.
-      
+
       for(int y = 0; y < str_data.length; ++y)
       {
-          for(int x = 0; x < str_data[y].length(); ++x)
-          {
-              if(str_data[y].charAt(x) == BLACK_CHAR)
-              {
-                  image_data[y][x] = true;
-              }
-          }
+         for(int x = 0; x < str_data[y].length(); ++x)
+         {
+            if(str_data[y].charAt(x) == BLACK_CHAR)
+            {
+               image_data[y][x] = true;
+            }
+         }
       }
 
 
@@ -40,14 +40,14 @@ public class BarcodeImage implements Cloneable
        *  
        // Initialize the array to all 'false'
       this(); // this calls the other method, so the array will all be false.
-      
+
       // get dimensions of array.
       int height = str_data.length;
       int width  = str_data[0].length();
-      
+
       int top = 0;
       int left = 0;  
-      
+
       // get the top left corner of the image.
       for (int i = 0; i < height; i++)
       {
@@ -61,7 +61,7 @@ public class BarcodeImage implements Cloneable
             }
          }
       }
-      
+
       // iterate and set the boolean array
       for (int i = 0; i < 10; i++)
       {
@@ -78,37 +78,43 @@ public class BarcodeImage implements Cloneable
        * 
        */
    }
-   
+
    public void doSomething(BarcodeIO foo)
    {
       foo.readText(" ");
    }
-   
+
    public boolean getPixel(int row, int col)
    {
       if(col <= MAX_HEIGHT && row <= MAX_WIDTH)
       {
-         if(image_data[col][row] == true) { return true; }
+         if(image_data[row][col] == true) { return true; }
          else { return false; }
       }
-      else { return false; }
+      else 
+      { 
+         return false; 
+      }
    }
-   
+
    public boolean setPixel(int row, int col, boolean value)
    {
       if(col <= MAX_HEIGHT && row <= MAX_WIDTH)
       {
-         image_data[col][row] = value;
+         image_data[row][col] = value;
          return true;
       }
-      else { return false; }
+      else 
+      { 
+         return false; 
+      }
    }
-   
+
    private void checkSize(String[] data)
    {
-      
+
    }
-   
+
    public void displayToConsole()
    {
       System.out.println("");
