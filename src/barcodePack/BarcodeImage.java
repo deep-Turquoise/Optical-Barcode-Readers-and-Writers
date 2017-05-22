@@ -89,7 +89,10 @@ public class BarcodeImage implements Cloneable
       if(col <= MAX_HEIGHT && row <= MAX_WIDTH)
       {
          if(image_data[row][col] == true) { return true; }
-         else { return false; }
+         else 
+         { 
+            return false; 
+         }
       }
       else 
       { 
