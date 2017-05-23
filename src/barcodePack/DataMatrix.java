@@ -175,7 +175,6 @@ public class DataMatrix implements BarcodeIO
       return false;
    }
 
-   @Override
    public void displayTextToConsole()
    {
       System.out.println(text);
