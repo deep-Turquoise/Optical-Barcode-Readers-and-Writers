@@ -1,12 +1,12 @@
 package barcodePack;
 
-class BarcodeImage implements Cloneable
+public class BarcodeImage implements Cloneable
 {
    public static final int MAX_HEIGHT = 30;
    public static final int MAX_WIDTH = 65;
    private boolean[][] image_data;
 
-   BarcodeImage()
+   public BarcodeImage()
    {
       image_data = new boolean[MAX_HEIGHT][MAX_WIDTH];
       for (int i = 0; i < MAX_HEIGHT; i++)
@@ -18,7 +18,7 @@ class BarcodeImage implements Cloneable
       }
    }
 
-   BarcodeImage(String[] str_data)
+   public BarcodeImage(String[] str_data)
    {
       image_data = new boolean[MAX_HEIGHT][MAX_WIDTH];
       
@@ -112,17 +112,14 @@ class BarcodeImage implements Cloneable
    
    public BarcodeImage clone()
    {
-      BarcodeImage newBarCode = new BarcodeImage();
-      boolean nextPixel;
-      for (int i = 0; i < MAX_WIDTH; i++)
+      try
       {
-         for (int k = 0; k < MAX_HEIGHT; k++)
-         {
-            nextPixel = image_data[i][k];
-            newBarCode.setPixel(i, k, nextPixel);
-         }
+         return (BarcodeImage)super.clone();
       }
-      return newBarCode;
+      catch(CloneNotSupportedException e)
+      {
+         return null;
+      }
    }
    
 }
