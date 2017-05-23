@@ -156,4 +156,17 @@ public class BarcodeImage implements Cloneable
       }
       System.out.println("End of output");
    }
+   
+   public Object clone()
+   {
+      try
+      {
+         return super.clone();
+      }
+      catch(CloneNotSupportedException e)
+      {
+         System.out.println("Cloning Failed");
+         return null;
+      }
+   }
 }
