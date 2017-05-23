@@ -100,16 +100,20 @@ public class BarcodeImage implements Cloneable
        */
    }
    
-   public BarcodeImage clone()
+   public BarcodeImage clone() throws CloneNotSupportedException
    {
-      try
+      BarcodeImage newImage = (BarcodeImage)super.clone();
+      boolean thisPixel;
+      
+      for (int i = 0; i < MAX_HEIGHT; i++)
       {
-         return (BarcodeImage)super.clone();
+         for (int k = 0; k <MAX_WIDTH; k++)
+         {
+            thisPixel = image_data[i][k];
+            newImage.setPixel(i, k, thisPixel);
+         }
       }
-      catch(CloneNotSupportedException e)
-      {
-         return null;
-      }
+      return newImage;
    }
    
 }
