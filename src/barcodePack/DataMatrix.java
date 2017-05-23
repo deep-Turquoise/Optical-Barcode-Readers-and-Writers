@@ -46,14 +46,20 @@ public class DataMatrix implements BarcodeIO
    {
       if (image != null)
       {
-         image.clone();
+         try
+         {
+            this.image = image.clone();
+         }
+         catch(CloneNotSupportedException e)
+         {
+            
+         }
          cleanImage();
          actualHeight = computeSignalHeight();
          actualWidth = computeSignalWidth();
          return true;
       }
       return false;
-      
    }
    
    public int getActualWidth()
