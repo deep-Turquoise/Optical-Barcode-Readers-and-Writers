@@ -1,7 +1,7 @@
 package barcodePack;
 import barcodePack.BarcodeIO;
 
-class DataMatrix implements BarcodeIO
+public class DataMatrix implements BarcodeIO
 {
    public static final char BLACK_CHAR = '*';
    public static final char WHITE_CHAR = ' ';
@@ -10,7 +10,7 @@ class DataMatrix implements BarcodeIO
    private int actualWidth;
    private int actualHeight;
    
-   DataMatrix()
+   public DataMatrix()
    {
       text = "undefined";
       image = new BarcodeImage();
@@ -18,13 +18,13 @@ class DataMatrix implements BarcodeIO
       actualHeight = 0;
    }
    
-   DataMatrix(BarcodeImage image)
+   public DataMatrix(BarcodeImage image)
    {
       this.image = image;
       scan(image); 
    }
    
-   DataMatrix(String newText)
+   public DataMatrix(String newText)
    {
       if (readText(newText) == true)
       {
