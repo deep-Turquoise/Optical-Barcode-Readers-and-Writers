@@ -62,17 +62,7 @@ public class BarcodeImage implements Cloneable
       }
       return false;
    }
-
-   public boolean getPixel()
-   {
-      /*
-       * For the getPixel(), you can use the return value for both the actual
-       * data and also the error condition -- so that we don't "create a scene"
-       * if there is an error; we just return false.
-       */
-      return false;
-   }
-
+   
    private boolean checkSize(String[] data) // Optional Method
    {
       if (data.length < MAX_HEIGHT && data[0].length() < MAX_WIDTH)
