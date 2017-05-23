@@ -178,7 +178,7 @@ public class DataMatrix implements BarcodeIO
    @Override
    public void displayTextToConsole()
    {
-      // TODO Auto-generated method stub
+      System.out.println(text);
       
    }
 }
