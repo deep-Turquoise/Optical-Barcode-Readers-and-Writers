@@ -10,6 +10,7 @@ public class DataMatrix implements BarcodeIO
    private int actualWidth;
    private int actualHeight;
    
+   // Default constructor.
    public DataMatrix()
    {
       text = "undefined";
@@ -18,12 +19,13 @@ public class DataMatrix implements BarcodeIO
       actualHeight = 0;
    }
    
+   // Constructor that takes a BarcodeImage object as an argument and uses it in the 
    public DataMatrix(BarcodeImage image)
    {
-      this.image = image;
-      scan(image); 
+      scan(image); // this will store a clone of the image in the object
    }
    
+   // Constructor that takes a String, this is for turning a string to image.
    public DataMatrix(String newText)
    {
       if (readText(newText) == true)
