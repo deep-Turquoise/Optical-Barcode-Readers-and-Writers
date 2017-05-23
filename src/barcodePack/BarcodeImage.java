@@ -161,7 +161,9 @@ public class BarcodeImage implements Cloneable
    {
       try
       {
-         return super.clone();
+         BarcodeImage copy = (BarcodeImage)super.clone();
+         copy.image_data = image_data.clone();
+         return copy;
       }
       catch(CloneNotSupportedException e)
       {
