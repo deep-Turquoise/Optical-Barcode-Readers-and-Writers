@@ -30,8 +30,20 @@ public class main
          "                                               "
 
       };      
-            
-         
+      //---------------------------------------------------------------------------------------------------------------      
+      BarcodeImage myBarcodeImage = new BarcodeImage(sImageIn);
+      myBarcodeImage.displayToConsole(); //This is just for debugging
+      
+      DataMatrix myDM = new DataMatrix(myBarcodeImage); // Took in above barcode
+      
+      myDM.displayImageToConsole(); //Trimmed and bordered per instructions
+      
+      
+      System.out.println(myDM.getActualHeight()); //Verifying height which was found by using computeSignalHeight
+      String myString = "*****************************************"; //Copied this from above to verify length
+      //Verifying width which was found by using computeSignalWidth
+      System.out.println("String:" + myString.length() + " vs getActualWidth:" + myDM.getActualWidth());
+      //--------------------------------------------------------------------------------------------------------------   
       
       String[] sImageIn_2 =
       {
