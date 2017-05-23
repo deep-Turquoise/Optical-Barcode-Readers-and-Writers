@@ -58,7 +58,29 @@ public class DataMatrix implements BarcodeIO
 
    public void displayImageToConsole()
    {
+      for (int i = 0; i < actualWidth + 2; i++)
+      {
+         System.out.print("-");
+      }
       
+      System.out.println();
+      
+      for (int i = 20; i < BarcodeImage.MAX_HEIGHT; i++ )
+      {
+         System.out.print("|");
+         for (int j = 0; j < actualWidth; j++)
+         {
+            if (image.getPixel(i, j) == true)
+            {
+               System.out.print(BLACK_CHAR);
+            }
+            else
+            {
+               System.out.print(WHITE_CHAR);
+            }  
+         }
+         System.out.println("|");
+      }
    }
    
    private void findTopLeftCoords(int xTopLeft, int yTopLeft)
