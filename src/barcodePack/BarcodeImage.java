@@ -1,140 +1,115 @@
 package barcodePack;
 
-public class BarcodeImage implements Cloneable
+class BarcodeImage implements Cloneable
 {
    public static final int MAX_HEIGHT = 30;
    public static final int MAX_WIDTH = 65;
    private boolean[][] image_data;
 
-   public static final char BLACK_CHAR = '*';
-   public static final char WHITE_CHAR = ' ';
-
-   public BarcodeImage()
+   BarcodeImage()
    {
       image_data = new boolean[MAX_HEIGHT][MAX_WIDTH];
       for (int i = 0; i < MAX_HEIGHT; i++)
       {
-         for (int k = 0; k < MAX_WIDTH; k++)
-            image_data[i][k] = false;
-      }
-   }
-
-   public BarcodeImage(String[] str_data)
-   {
-      // Initialize the array to all 'false'
-      this(); // this calls the other method, so the array will all be false.
-
-      if (checkSize(str_data) == true)
-      {
-         // image may be smaller so pack into lower left hand corner
-         for (int y = MAX_HEIGHT - 1; y >= 0; --y)
+         for (int j = 0; j < MAX_WIDTH; j++)
          {
-            for (int x = 0; x < MAX_WIDTH; ++x)
-            {
-               if (x < str_data[0].length() && (str_data.length - (MAX_HEIGHT - y)) >= 0)
-               {
-                  if (str_data[str_data.length - (MAX_HEIGHT - y)].charAt(x) == BLACK_CHAR)
-                  {
-                     image_data[y][x] = true;
-                  }
-               }
-            }
+            image_data[i][j] = false;
          }
       }
-      displayToConsole();
-
-      /*
-       * David's Code
-       * 
-       * // Initialize the array to all 'false' this(); // this calls the other
-       * method, so the array will all be false.
-       * 
-       * // get dimensions of array. int height = str_data.length; int width =
-       * str_data[0].length();
-       * 
-       * int top = 0; int left = 0;
-       * 
-       * // get the top left corner of the image. for (int i = 0; i < height;
-       * i++) { for (int k = 0; k < width; k++) { if (str_data[i].charAt(k) ==
-       * BLACK_CHAR) { top = k; left = i; break; // end this loop we have what
-       * we want. } } }
-       * 
-       * // iterate and set the boolean array for (int i = 0; i < 10; i++) { for
-       * (int k = 0; k < width - left ; k++ ) { if (str_data[i + top].charAt(k +
-       * left) == BLACK_CHAR) { image_data[i+20][k] = true; } } } int test; test
-       * = 1;
-       * 
-       */
    }
 
-   public void doSomething(BarcodeIO foo)
+   BarcodeImage(String[] str_data)
    {
-      foo.readText(" ");
+      image_data = new boolean[MAX_HEIGHT][MAX_WIDTH];
+      
+      if (checkSize(str_data))
+      {
+         for (int i = 0; i < str_data.length; i++)
+         {
+            for (int j = 0; j < str_data[0].length(); j++)
+            {
+               if (str_data[i].charAt(j) == '*')
+               {
+                  image_data[MAX_HEIGHT - str_data.length + i][j] = true;
+               } 
+               
+               else
+               {
+                  image_data[MAX_HEIGHT - str_data.length + i][j] = false;
+               }  
+            }
+         }
+      } 
+      
+      else
+      {
+         System.out.println("Data is not the right size");
+      }
+
    }
 
    public boolean getPixel(int row, int col)
    {
-      if (col <= MAX_HEIGHT && row <= MAX_WIDTH)
-      {
-         if (image_data[row][col] == true)
-         {
-            return true;
-         } else
-         {
-            return false;
-         }
-      } else
-      {
-         return false;
-      }
+      return image_data[row][col];
    }
 
    public boolean setPixel(int row, int col, boolean value)
    {
-      if (col <= MAX_HEIGHT && row <= MAX_WIDTH)
+      if (row < MAX_HEIGHT && col < MAX_WIDTH)
       {
          image_data[row][col] = value;
          return true;
-      } else
-      {
-         return false;
       }
+      return false;
    }
 
-   private boolean checkSize(String[] data)
+   public boolean getPixel()
    {
-      int height = data.length;
-      int width = data[0].length();
-      if (height < MAX_HEIGHT || width < MAX_WIDTH)
+      /*
+       * For the getPixel(), you can use the return value for both the actual
+       * data and also the error condition -- so that we don't "create a scene"
+       * if there is an error; we just return false.
+       */
+      return false;
+   }
+
+   private boolean checkSize(String[] data) // Optional Method
+   {
+      if (data.length < MAX_HEIGHT && data[0].length() < MAX_WIDTH)
       {
+         System.out.println("Size is dope");
          return true;
-      } else
-      {
-         System.out.println("The input image size is too large");
-         return false;
       }
+      System.out.println("Size is not dope");
+      return false;
    }
 
-   public void displayToConsole()
+   public void displayToConsole() // Optional Method
    {
-      System.out.println("Beginning of output");
-      for (int y = 0; y < MAX_HEIGHT; ++y)
+      System.out.println("---------x---------x---------x---------x---------x---------x");
+      for (int i = 0; i < MAX_HEIGHT; i++ )
       {
-         for (int x = 0; x < MAX_WIDTH; ++x)
+         System.out.print("|");
+         for (int j = 0; j < MAX_WIDTH; j++)
          {
-            if (image_data[y][x] == true)
+            if (image_data[i][j] == true)
             {
-               System.out.print("*");
-            } else
-            {
-               System.out.print("_");
+               System.out.print('*');
             }
+            else
+            {
+               System.out.print(" ");
+            }  
          }
          System.out.println();
       }
-      System.out.println("End of output");
+      System.out.println("---------x---------x---------x---------x---------x---------x");
+      /*
+       * method that is useful for debugging this class, but not very useful for
+       * the assignment at large.
+       */
    }
-
+   
    public BarcodeImage clone()
    {
       BarcodeImage newBarCode = new BarcodeImage();
@@ -149,4 +124,5 @@ public class BarcodeImage implements Cloneable
       }
       return newBarCode;
    }
+   
 }
