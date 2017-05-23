@@ -23,15 +23,20 @@ public class BarcodeImage implements Cloneable
    {
       // Initialize the array to all 'false'
       this(); // this calls the other method, so the array will all be false.
+
       if(checkSize(str_data) == true)
       {
-         for(int y = 0; y < str_data.length; ++y)
+         //image may be smaller so pack into lower left hand corner
+         for(int y = MAX_HEIGHT-1; y >= 0; --y)
          {
-            for(int x = 0; x < str_data[y].length(); ++x)
+            for(int x = 0; x < MAX_WIDTH; ++x)
             {
-               if(str_data[y].charAt(x) == BLACK_CHAR)
+               if(x < str_data[0].length() && (str_data.length-(MAX_HEIGHT-y)) >= 0)
                {
-                  image_data[y][x] = true;
+                  if(str_data[str_data.length-(MAX_HEIGHT-y)].charAt(x) == BLACK_CHAR)
+                  {
+                     image_data[y][x] = true;
+                  }
                }
             }
          }
