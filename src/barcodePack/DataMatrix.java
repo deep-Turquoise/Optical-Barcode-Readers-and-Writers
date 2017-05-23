@@ -1,7 +1,7 @@
 package barcodePack;
 import barcodePack.BarcodeIO;
 
-public class DataMatrix implements BarcodeIO
+class DataMatrix implements BarcodeIO
 {
    public static final char BLACK_CHAR = '*';
    public static final char WHITE_CHAR = ' ';
@@ -9,59 +9,53 @@ public class DataMatrix implements BarcodeIO
    private String text;
    private int actualWidth;
    private int actualHeight;
-
-   public DataMatrix()
+   
+   DataMatrix()
    {
-       image = new BarcodeImage();
-       text = "undefined";
-       actualWidth = 0;
-       actualHeight = 0;
+      text = "undefined";
+      image = new BarcodeImage();
+      actualWidth = 0;
+      actualHeight = 0;
    }
    
-   public DataMatrix(BarcodeImage giv)
+   DataMatrix(BarcodeImage image)
    {
-      image = giv;
-      scan(giv);
-   }
-
-   public DataMatrix(String giv)
-   {
-       image = new BarcodeImage();
-       readText(giv);
+      this.image = image;
+      scan(image); 
    }
    
-   public boolean scan(BarcodeImage giv)
+   DataMatrix(String newText)
    {
-      image = (BarcodeImage)giv.clone();
-      cleanImage();
-      return false;
-   }
-
-   public boolean readText(String giv)
-   {
-      if (giv != null)
+      if (readText(newText) == true)
       {
-         text = giv;
+         text = newText;
+      }
+   }
+   
+   public boolean readText(String newText)
+   {
+      if (newText != null)
+      {
+         text = newText;
          return true;
       }
       return false;
    }
-
-   public boolean generateImageFromText()
+   
+   public boolean scan(BarcodeImage image)
    {
+      if (image != null)
+      {
+         image.clone();
+         cleanImage();
+         actualHeight = computeSignalHeight();
+         actualWidth = computeSignalWidth();
+         return true;
+      }
       return false;
-   }
-
-   public boolean translateImageToText()
-   {
-      return false;
-   }
-
-   public void displayTextToConsole()
-   {
       
    }
-
+   
    public int getActualWidth()
    {
       return actualWidth;
@@ -70,6 +64,74 @@ public class DataMatrix implements BarcodeIO
    public int getActualHeight()
    {
       return actualHeight;
+   }
+   
+   private int computeSignalWidth()
+   {
+      for (int i = 0; i < BarcodeImage.MAX_WIDTH; i++)
+      {
+         if (image.getPixel(BarcodeImage.MAX_HEIGHT - 1, i) == false)
+         {
+            return i;
+         }
+      }
+      return BarcodeImage.MAX_WIDTH;
+   }
+   
+   private int computeSignalHeight()
+   {
+      for (int i = 0; i < BarcodeImage.MAX_HEIGHT; i++)
+      {
+         if (image.getPixel(i, 0) == true)
+         {
+            return BarcodeImage.MAX_HEIGHT - i;
+         }
+      }
+      return BarcodeImage.MAX_HEIGHT;
+   }
+   
+   private void cleanImage()
+   {
+      BarcodeImage newImage = new BarcodeImage();
+      
+      for (int i = locateTopLeftRow(image), y = 0; i < BarcodeImage.MAX_HEIGHT; i++, y++)
+      {
+         for (int j = locateTopLeftCol(image), x = 0; j < BarcodeImage.MAX_WIDTH; j++, x++)
+         {
+            newImage.setPixel(20 + y, x, image.getPixel(i, j));
+         }
+      }
+      image = newImage;
+   }
+   
+   private int locateTopLeftRow(BarcodeImage image) //Helper Method
+   {
+      for (int i = 0; i < BarcodeImage.MAX_HEIGHT; i++)
+      {
+         for (int j = 0; j < BarcodeImage.MAX_WIDTH; j++)
+         {
+            if (image.getPixel(i, j))
+            {
+               return i;
+            }
+         }
+      }
+      return -1;
+   }
+   
+   private int locateTopLeftCol(BarcodeImage image) //Helper Method
+   {
+      for (int i = 0; i < BarcodeImage.MAX_HEIGHT; i++)
+      {
+         for (int j = 0; j < BarcodeImage.MAX_WIDTH; j++)
+         {
+            if (image.getPixel(i,j))
+            {
+               return j;
+            }
+         }
+      }
+      return -1;
    }
    
    public void displayImageToConsole()
@@ -98,74 +160,26 @@ public class DataMatrix implements BarcodeIO
          System.out.println("|");
       }
    }
-   
-   private void findTopLeftCoords(int xTopLeft, int yTopLeft)
+
+   @Override
+   public boolean generateImageFromText()
    {
-      for(int y = 0; y < image.MAX_HEIGHT; ++y)
-      {
-         for(int x = 0; x < image.MAX_WIDTH; ++x)
-         {
-            if(image.getPixel(y, x) == true)
-            {
-               xTopLeft = x;
-               yTopLeft = y;
-               break;
-            }
-         }
-      }
+      // TODO Auto-generated method stub
+      return false;
    }
-   
-   private void determineHeight(int xTopLeft, int yTopLeft)
+
+   @Override
+   public boolean translateImageToText()
    {
-      for(int y = yTopLeft; y < image.MAX_HEIGHT; ++y)
-      {
-         if(image.getPixel(y, xTopLeft) == true)
-         {
-            actualHeight = y - yTopLeft;
-         }
-         else
-         {
-            break;
-         }
-      }
+      // TODO Auto-generated method stub
+      return false;
    }
-   
-   private void determineWidth(int xTopLeft, int yTopLeft)
+
+   @Override
+   public void displayTextToConsole()
    {
-      for(int x = xTopLeft; x < image.MAX_WIDTH; ++x)
-      {
-         if(image.getPixel(yTopLeft+actualHeight, x) == true)
-         {
-            actualWidth = x- xTopLeft;
-         }
-         else
-         {
-            break;
-         }
-      }
-   }
-   
-   private void shiftDown(int xTopLeft, int yTopLeft)
-   {
-      //find bottom y coord
-      for(int y = image.MAX_HEIGHT-1; y >= 0; --y)
-      {
-         for(int x = 0; x < image.MAX_WIDTH; ++x)
-         {
-            // sw
-         }
-      }
-   }
-   
-   private void cleanImage()
-   {
-      int xTopLeft = 0;
-      int yTopLeft = 0;
-      findTopLeftCoords(xTopLeft, yTopLeft);
+      // TODO Auto-generated method stub
       
-      determineWidth(xTopLeft, yTopLeft);
-      determineHeight(xTopLeft, yTopLeft);
-      shiftDown(xTopLeft, yTopLeft);
    }
 }
 
