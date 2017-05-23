@@ -62,6 +62,16 @@ public class DataMatrix implements BarcodeIO
       
    }
 
+   public int getActualWidth()
+   {
+      return actualWidth;
+   }
+   
+   public int getActualHeight()
+   {
+      return actualHeight;
+   }
+   
    public void displayImageToConsole()
    {
       for (int i = 0; i < actualWidth + 2; i++)
