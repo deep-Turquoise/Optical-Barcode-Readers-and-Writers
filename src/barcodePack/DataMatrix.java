@@ -14,10 +14,13 @@ public class DataMatrix implements BarcodeIO
    {
        image = new BarcodeImage();
        text = "undefined";
+       actualWidth = 0;
+       actualHeight = 0;
    }
    
    public DataMatrix(BarcodeImage giv)
    {
+      image = giv;
       scan(giv);
    }
 
@@ -36,9 +39,12 @@ public class DataMatrix implements BarcodeIO
 
    public boolean readText(String giv)
    {
-      // i'm really not sure what this for
-      text = giv;
-      return true;
+      if (giv != null)
+      {
+         text = giv;
+         return true;
+      }
+      return false;
    }
 
    public boolean generateImageFromText()
