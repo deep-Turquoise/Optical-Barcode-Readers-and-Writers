@@ -25,16 +25,16 @@ public class BarcodeImage implements Cloneable
       this(); // this calls the other method, so the array will all be false.
       if(checkSize(str_data) == true)
       {
-        for(int y = 0; y < str_data.length; ++y)
-        {
+         for(int y = 0; y < str_data.length; ++y)
+         {
             for(int x = 0; x < str_data[y].length(); ++x)
             {
-                if(str_data[y].charAt(x) == BLACK_CHAR)
-                {
-                    image_data[y][x] = true;
-                }
+               if(str_data[y].charAt(x) == BLACK_CHAR)
+               {
+                  image_data[y][x] = true;
+               }
             }
-        }
+         }
       }
       displayToConsole();
 
@@ -118,17 +118,17 @@ public class BarcodeImage implements Cloneable
 
    private boolean checkSize(String[] data)
    {
-       int height = data.length;
-       int width = data[0].length();
-       if(height < MAX_HEIGHT || width < MAX_WIDTH)
-       {
-           return true;
-       }
-       else
-       {
-           System.out.println("The input image size is too large");
-           return false;
-       }
+      int height = data.length;
+      int width = data[0].length();
+      if(height < MAX_HEIGHT || width < MAX_WIDTH)
+      {
+         return true;
+      }
+      else
+      {
+         System.out.println("The input image size is too large");
+         return false;
+      }
    }
 
    public void displayToConsole()
@@ -136,18 +136,18 @@ public class BarcodeImage implements Cloneable
       System.out.println("Beginning of output");
       for(int y = 0; y < MAX_HEIGHT; ++y)
       {
-          for(int x = 0; x < MAX_WIDTH; ++x)
-          {
+         for(int x = 0; x < MAX_WIDTH; ++x)
+         {
             if(image_data[y][x] == true)
             {
-                System.out.print("*");
+               System.out.print("*");
             }
             else
             {
-                System.out.print("_");
+               System.out.print("_");
             }
-          }
-          System.out.println();
+         }
+         System.out.println();
       }
       System.out.println("End of output");
    }
