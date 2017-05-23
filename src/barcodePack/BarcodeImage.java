@@ -31,11 +31,12 @@ public class BarcodeImage implements Cloneable
             {
                 if(str_data[y].charAt(x) == BLACK_CHAR)
                 {
-                image_data[y][x] = true;
+                    image_data[y][x] = true;
                 }
             }
         }
       }
+      displayToConsole();
 
       /* David's Code
        *  
@@ -132,6 +133,22 @@ public class BarcodeImage implements Cloneable
 
    public void displayToConsole()
    {
-      System.out.println("");
+      System.out.println("Beginning of output");
+      for(int y = 0; y < MAX_HEIGHT; ++y)
+      {
+          for(int x = 0; x < MAX_WIDTH; ++x)
+          {
+            if(image_data[y][x] == true)
+            {
+                System.out.print("*");
+            }
+            else
+            {
+                System.out.print("_");
+            }
+          }
+          System.out.println();
+      }
+      System.out.println("End of output");
    }
 }
