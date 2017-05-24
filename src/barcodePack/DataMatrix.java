@@ -271,11 +271,62 @@ public class DataMatrix implements BarcodeIO
       
       return false;
    }
-
-   @Override
+   
    public boolean translateImageToText()
    {
-      // TODO Auto-generated method stub
+      int ascii = 0;
+      String newText = "";
+      
+      if (image != null)
+      {
+         for (int i = 1; i < actualWidth - 1; i++)
+         {
+            for (int j = BarcodeImage.MAX_HEIGHT - actualHeight + 1; j < BarcodeImage.MAX_HEIGHT; j++)
+            {
+               if (image.getPixel(j, i) == true)
+               {
+                  if (j == 21)
+                  {
+                     ascii += 128;
+                  }
+                  else if (j == 22)
+                  {
+                     ascii += 64;
+                  }
+                  else if (j == 23)
+                  {
+                     ascii += 32;
+                  }
+                  else if (j == 24)
+                  {
+                     ascii += 16;
+                  }
+                  else if (j == 25)
+                  {
+                     ascii += 8;
+                  }
+                  else if (j == 26)
+                  {
+                     ascii += 4;
+                  }
+                  else if (j == 27)
+                  {
+                     ascii += 2;
+                  }
+                  else if (j == 28)
+                  {
+                     ascii += 1;
+                  }
+                     
+               }
+            }
+            System.out.println(ascii);
+            newText += (char)ascii;
+            ascii = 0;
+         }
+         text = newText;
+         return true;
+      }
       return false;
    }
 
