@@ -258,8 +258,6 @@ public class DataMatrix implements BarcodeIO
    public boolean generateImageFromText()
    {
       clearImage();
-      System.out.println("\n\n\nHERE --------------------------------------------------------------------------\n\n\n");
-      System.out.println(text);
       
       int width = text.length();
       int height = 10; 
@@ -271,7 +269,6 @@ public class DataMatrix implements BarcodeIO
          WriteCharToCol(x+1, ascii);
       }
       
-      System.out.println("\n\n\nEND --------------------------------------------------------------------------\n\n\n");
       return false;
    }
 
