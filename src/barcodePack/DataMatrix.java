@@ -168,11 +168,110 @@ public class DataMatrix implements BarcodeIO
          System.out.println("|");
       }
    }
+   private void clearImage()
+   {
+      image = new BarcodeImage();
+   }
+   
+   private void createStarFrame(int height, int width)
+   {
+      int inImageHeight = BarcodeImage.MAX_HEIGHT - height - 1;
+      for(int y = BarcodeImage.MAX_HEIGHT; y > 0; --y)
+      {
+         for(int x = 0; x <= width+1; ++x)
+         {
+            //left bar
+            if(y > inImageHeight && x == 0)
+            {
+               image.setPixel(y, x, true);
+            }
+            
+            //bottom bar
+            if(y == BarcodeImage.MAX_HEIGHT-1 && x < width+1)
+            {
+               image.setPixel(y, x, true);
+            }
+            
+            //top bar
+            if(y == inImageHeight+1 && x < width && x % 2 != 0)
+            {
+               image.setPixel(y, x+1, true);
+            }
+            
+            //right bar
+            if(x == width+1 && y%2 != 0)
+            {
+               image.setPixel(y, x, true);
+            }
+         }
+      }
+   }
+   
+   private boolean WriteCharToCol(int col, int code)
+   {
+      while(code > 0)
+      {
+         if(code >= 128)
+         {
+            code = code-128;
+            image.setPixel(BarcodeImage.MAX_HEIGHT-9, col, true);
+         }
+         if(code >= 64)
+         {
+            code = code-64;
+            image.setPixel(BarcodeImage.MAX_HEIGHT-8, col, true);
+         }
+         if(code >= 32)
+         {
+            code = code-32;
+            image.setPixel(BarcodeImage.MAX_HEIGHT-7, col, true);
+         }
+         if(code >= 16)
+         {
+            code = code-16;
+            image.setPixel(BarcodeImage.MAX_HEIGHT-6, col, true);
+         }
+         if(code >= 8)
+         {
+            code = code-8;
+            image.setPixel(BarcodeImage.MAX_HEIGHT-5, col, true);
+         }
+         if(code >= 4)
+         {
+            code = code-4;
+            image.setPixel(BarcodeImage.MAX_HEIGHT-4, col, true);
+         }
+         if(code >= 2)
+         {
+            code = code-2;
+            image.setPixel(BarcodeImage.MAX_HEIGHT-3, col, true);
+         }
+         if(code >= 1)
+         {
+            code = code-1;
+            image.setPixel(BarcodeImage.MAX_HEIGHT-2, col, true);
+         }
+      }
+      return false;
+   }
 
-   @Override
    public boolean generateImageFromText()
    {
-      // TODO Auto-generated method stub
+      clearImage();
+      System.out.println("\n\n\nHERE --------------------------------------------------------------------------\n\n\n");
+      System.out.println(text);
+      
+      int width = text.length();
+      int height = 10; 
+      createStarFrame(height, width);
+      
+      for(int x = 0; x < text.length(); ++x)
+      {
+         int ascii = text.charAt(x);
+         WriteCharToCol(x+1, ascii);
+      }
+      
+      System.out.println("\n\n\nEND --------------------------------------------------------------------------\n\n\n");
       return false;
    }
 
@@ -186,7 +285,6 @@ public class DataMatrix implements BarcodeIO
    public void displayTextToConsole()
    {
       System.out.println(text);
-      
    }
 }
 
