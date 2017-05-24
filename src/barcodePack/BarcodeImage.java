@@ -6,6 +6,7 @@ public class BarcodeImage implements Cloneable
    public static final int MAX_WIDTH = 65;
    private boolean[][] image_data;
 
+   // Default constructor for BarcodeImage.
    public BarcodeImage()
    {
       image_data = new boolean[MAX_HEIGHT][MAX_WIDTH];
@@ -18,9 +19,10 @@ public class BarcodeImage implements Cloneable
       }
    }
 
+   // Constructor for BarcodeImage that takes an array of Strings.
    public BarcodeImage(String[] str_data)
    {
-      image_data = new boolean[MAX_HEIGHT][MAX_WIDTH];
+      this(); // start by creating new empty array
       
       if (checkSize(str_data))
       {
@@ -31,11 +33,6 @@ public class BarcodeImage implements Cloneable
                if (str_data[i].charAt(j) == '*')
                {
                   image_data[MAX_HEIGHT - str_data.length + i][j] = true;
-               } 
-               
-               else
-               {
-                  image_data[MAX_HEIGHT - str_data.length + i][j] = false;
                }  
             }
          }
@@ -48,11 +45,13 @@ public class BarcodeImage implements Cloneable
 
    }
 
+   // simple accessor for a pixel at a given location
    public boolean getPixel(int row, int col)
    {
       return image_data[row][col];
    }
 
+   // simple mutator for a pixel at a given location.
    public boolean setPixel(int row, int col, boolean value)
    {
       if (row < MAX_HEIGHT && col < MAX_WIDTH)
@@ -63,6 +62,7 @@ public class BarcodeImage implements Cloneable
       return false;
    }
    
+   // helper method to make sure incoming data isn't too large 
    private boolean checkSize(String[] data) // Optional Method
    {
       if (data.length < MAX_HEIGHT && data[0].length() < MAX_WIDTH)
@@ -72,6 +72,7 @@ public class BarcodeImage implements Cloneable
       return false;
    }
 
+   // helper method to display current contents of "image structure"
    public void displayToConsole() // Optional Method
    {
       System.out.println("---------x---------x---------x---------x---------x---------x");
@@ -94,6 +95,8 @@ public class BarcodeImage implements Cloneable
       System.out.println("---------x---------x---------x---------x---------x---------x");
    }
    
+   // this satisfies the "implements Cloneable" and creates and returns a copy of the called 
+   // instance variable
    public BarcodeImage clone() throws CloneNotSupportedException
    {
       BarcodeImage newImage = (BarcodeImage)super.clone();
