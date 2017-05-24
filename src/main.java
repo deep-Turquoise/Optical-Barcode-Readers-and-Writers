@@ -70,7 +70,7 @@ public class main
       dm.displayImageToConsole();
       
       // create your own message
-      dm.readText("What a great resume builder this is!");
+      dm.readText("Otterbots!");
       dm.generateImageFromText();
       dm.displayTextToConsole();
       dm.displayImageToConsole();

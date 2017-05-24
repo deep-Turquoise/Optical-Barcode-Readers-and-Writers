@@ -268,7 +268,7 @@ public class DataMatrix implements BarcodeIO
          int ascii = text.charAt(x);
          WriteCharToCol(x+1, ascii);
       }
-      
+      actualWidth = computeSignalWidth();
       return false;
    }
    
