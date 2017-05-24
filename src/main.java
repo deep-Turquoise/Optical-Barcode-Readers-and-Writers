@@ -30,20 +30,8 @@ public class main
          "                                               "
 
       };      
-      //---------------------------------------------------------------------------------------------------------------      
-      BarcodeImage myBarcodeImage = new BarcodeImage(sImageIn);
-      myBarcodeImage.displayToConsole(); //This is just for debugging
-      
-      DataMatrix myDM = new DataMatrix(myBarcodeImage); // Took in above barcode
-      
-      myDM.displayImageToConsole(); //Trimmed and bordered per instructions
-      
-      
-      System.out.println(myDM.getActualHeight()); //Verifying height which was found by using computeSignalHeight
-      String myString = "*****************************************"; //Copied this from above to verify length
-      //Verifying width which was found by using computeSignalWidth
-      System.out.println("String:" + myString.length() + " vs getActualWidth:" + myDM.getActualWidth());
-      //--------------------------------------------------------------------------------------------------------------   
+            
+         
       
       String[] sImageIn_2 =
       {
@@ -65,13 +53,7 @@ public class main
             "                                          "
 
       };
-      System.out.println(sImageIn.length);
-      System.out.println(sImageIn[0].length());
-      System.out.println(sImageIn[0]);
-      
-      System.out.println(sImageIn[5]);
-      System.out.println(sImageIn_2);
-
+     
       BarcodeImage bc = new BarcodeImage(sImageIn);
       DataMatrix dm = new DataMatrix(bc);
      
@@ -92,6 +74,5 @@ public class main
       dm.generateImageFromText();
       dm.displayTextToConsole();
       dm.displayImageToConsole();
-
    }   
 }

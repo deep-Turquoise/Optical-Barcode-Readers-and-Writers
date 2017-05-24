@@ -67,10 +67,8 @@ public class BarcodeImage implements Cloneable
    {
       if (data.length < MAX_HEIGHT && data[0].length() < MAX_WIDTH)
       {
-         System.out.println("Size is dope");
          return true;
       }
-      System.out.println("Size is not dope");
       return false;
    }
 
@@ -94,10 +92,6 @@ public class BarcodeImage implements Cloneable
          System.out.println();
       }
       System.out.println("---------x---------x---------x---------x---------x---------x");
-      /*
-       * method that is useful for debugging this class, but not very useful for
-       * the assignment at large.
-       */
    }
    
    public BarcodeImage clone() throws CloneNotSupportedException
