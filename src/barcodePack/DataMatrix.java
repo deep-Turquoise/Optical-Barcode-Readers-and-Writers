@@ -34,6 +34,7 @@ public class DataMatrix implements BarcodeIO
       }
    }
    
+   // simple mutator for private text variable
    public boolean readText(String newText)
    {
       if (newText != null)
@@ -44,6 +45,9 @@ public class DataMatrix implements BarcodeIO
       return false;
    }
    
+   // this method makes a duplicate of a BarcodeImage given as an argument
+   // it stores the copy as the internal private variable for self, then
+   // performs some cleanup.
    public boolean scan(BarcodeImage image)
    {
       if (image != null)
@@ -64,16 +68,20 @@ public class DataMatrix implements BarcodeIO
       return false;
    }
    
+   // simple accessor for the actualWidth private variable
    public int getActualWidth()
    {
       return actualWidth;
    }
    
+   // simple accessor for th eactualHeight private variable
    public int getActualHeight()
    {
       return actualHeight;
    }
    
+   // this private method computes the width of a 'signal' from
+   // the BarcodeImage object.
    private int computeSignalWidth()
    {
       for (int i = 0; i < BarcodeImage.MAX_WIDTH; i++)
@@ -86,6 +94,8 @@ public class DataMatrix implements BarcodeIO
       return BarcodeImage.MAX_WIDTH;
    }
    
+   // this private method computes the height of a 'signal' from
+   // the BarcodeImage object.
    private int computeSignalHeight()
    {
       for (int i = 0; i < BarcodeImage.MAX_HEIGHT; i++)
@@ -98,6 +108,8 @@ public class DataMatrix implements BarcodeIO
       return BarcodeImage.MAX_HEIGHT;
    }
    
+   // this method 'cleans' the BarcodeImage object by putting the 'signal'
+   // into the lower left corner of its internal array.
    private void cleanImage()
    {
       BarcodeImage newImage = new BarcodeImage();
@@ -112,6 +124,8 @@ public class DataMatrix implements BarcodeIO
       image = newImage;
    }
    
+   // this method finds the top left of the image data in the BarcodeImage
+   // structure
    private int locateTopLeftRow(BarcodeImage image) //Helper Method
    {
       for (int i = 0; i < BarcodeImage.MAX_HEIGHT; i++)
@@ -127,6 +141,8 @@ public class DataMatrix implements BarcodeIO
       return -1;
    }
    
+   // this method finds the top left column of the image data
+   // in the barcode image.
    private int locateTopLeftCol(BarcodeImage image) //Helper Method
    {
       for (int i = 0; i < BarcodeImage.MAX_HEIGHT; i++)
@@ -142,6 +158,8 @@ public class DataMatrix implements BarcodeIO
       return -1;
    }
    
+   // This method outputs a representation of the image as it appears in the
+   // BarcodeImage structure.
    public void displayImageToConsole()
    {
       for (int i = 0; i < actualWidth + 2; i++)
@@ -168,11 +186,15 @@ public class DataMatrix implements BarcodeIO
          System.out.println("|");
       }
    }
+   
+   // this method resets the BarcodeImage object with a new one.
    private void clearImage()
    {
       image = new BarcodeImage();
    }
    
+   // This method creates the outline for a barcode symbol
+   // within the BarcodeImage object.
    private void createStarFrame(int height, int width)
    {
       int inImageHeight = BarcodeImage.MAX_HEIGHT - height - 1;
@@ -207,6 +229,7 @@ public class DataMatrix implements BarcodeIO
       }
    }
    
+   // This helper method writes a character argument to a column.
    private boolean WriteCharToCol(int col, int code)
    {
       while(code > 0)
@@ -254,7 +277,9 @@ public class DataMatrix implements BarcodeIO
       }
       return false;
    }
+   
 
+   // this method creates a barcode from the private text variable.
    public boolean generateImageFromText()
    {
       clearImage();
@@ -272,6 +297,8 @@ public class DataMatrix implements BarcodeIO
       return false;
    }
    
+   // this method sets the private text variable
+   // based on BarcodeImage data
    public boolean translateImageToText()
    {
       int ascii = 0;
@@ -329,6 +356,7 @@ public class DataMatrix implements BarcodeIO
       return false;
    }
 
+   // This method displays the contents of the private text variable.
    public void displayTextToConsole()
    {
       System.out.println(text);
