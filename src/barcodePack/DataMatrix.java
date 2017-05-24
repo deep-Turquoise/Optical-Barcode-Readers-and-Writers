@@ -1,4 +1,5 @@
 package barcodePack;
+
 import barcodePack.BarcodeIO;
 
 public class DataMatrix implements BarcodeIO
@@ -9,7 +10,7 @@ public class DataMatrix implements BarcodeIO
    private String text;
    private int actualWidth;
    private int actualHeight;
-   
+
    // Default constructor.
    public DataMatrix()
    {
@@ -18,13 +19,14 @@ public class DataMatrix implements BarcodeIO
       actualWidth = 0;
       actualHeight = 0;
    }
-   
-   // Constructor that takes a BarcodeImage object as an argument and uses it in the 
+
+   // Constructor that takes a BarcodeImage object as an argument and uses it in
+   // the
    public DataMatrix(BarcodeImage image)
    {
       scan(image); // this will store a clone of the image in the object
    }
-   
+
    // Constructor that takes a String, this is for turning a string to image.
    public DataMatrix(String newText)
    {
@@ -33,7 +35,7 @@ public class DataMatrix implements BarcodeIO
          text = newText;
       }
    }
-   
+
    // simple mutator for private text variable
    public boolean readText(String newText)
    {
@@ -44,7 +46,7 @@ public class DataMatrix implements BarcodeIO
       }
       return false;
    }
-   
+
    // this method makes a duplicate of a BarcodeImage given as an argument
    // it stores the copy as the internal private variable for self, then
    // performs some cleanup.
@@ -56,9 +58,9 @@ public class DataMatrix implements BarcodeIO
          {
             this.image = image.clone();
          }
-         catch(CloneNotSupportedException e)
+         catch (CloneNotSupportedException e)
          {
-            
+
          }
          cleanImage();
          actualHeight = computeSignalHeight();
@@ -67,19 +69,19 @@ public class DataMatrix implements BarcodeIO
       }
       return false;
    }
-   
+
    // simple accessor for the actualWidth private variable
    public int getActualWidth()
    {
       return actualWidth;
    }
-   
+
    // simple accessor for th eactualHeight private variable
    public int getActualHeight()
    {
       return actualHeight;
    }
-   
+
    // this private method computes the width of a 'signal' from
    // the BarcodeImage object.
    private int computeSignalWidth()
@@ -93,7 +95,7 @@ public class DataMatrix implements BarcodeIO
       }
       return BarcodeImage.MAX_WIDTH;
    }
-   
+
    // this private method computes the height of a 'signal' from
    // the BarcodeImage object.
    private int computeSignalHeight()
@@ -107,13 +109,13 @@ public class DataMatrix implements BarcodeIO
       }
       return BarcodeImage.MAX_HEIGHT;
    }
-   
+
    // this method 'cleans' the BarcodeImage object by putting the 'signal'
    // into the lower left corner of its internal array.
    private void cleanImage()
    {
       BarcodeImage newImage = new BarcodeImage();
-      
+
       for (int i = locateTopLeftRow(image), y = 0; i < BarcodeImage.MAX_HEIGHT; i++, y++)
       {
          for (int j = locateTopLeftCol(image), x = 0; j < BarcodeImage.MAX_WIDTH; j++, x++)
@@ -123,10 +125,10 @@ public class DataMatrix implements BarcodeIO
       }
       image = newImage;
    }
-   
+
    // this method finds the top left of the image data in the BarcodeImage
    // structure
-   private int locateTopLeftRow(BarcodeImage image) //Helper Method
+   private int locateTopLeftRow(BarcodeImage image) // Helper Method
    {
       for (int i = 0; i < BarcodeImage.MAX_HEIGHT; i++)
       {
@@ -140,16 +142,16 @@ public class DataMatrix implements BarcodeIO
       }
       return -1;
    }
-   
+
    // this method finds the top left column of the image data
    // in the barcode image.
-   private int locateTopLeftCol(BarcodeImage image) //Helper Method
+   private int locateTopLeftCol(BarcodeImage image) // Helper Method
    {
       for (int i = 0; i < BarcodeImage.MAX_HEIGHT; i++)
       {
          for (int j = 0; j < BarcodeImage.MAX_WIDTH; j++)
          {
-            if (image.getPixel(i,j))
+            if (image.getPixel(i, j))
             {
                return j;
             }
@@ -157,7 +159,7 @@ public class DataMatrix implements BarcodeIO
       }
       return -1;
    }
-   
+
    // This method outputs a representation of the image as it appears in the
    // BarcodeImage structure.
    public void displayImageToConsole()
@@ -166,10 +168,10 @@ public class DataMatrix implements BarcodeIO
       {
          System.out.print("-");
       }
-      
+
       System.out.println();
-      
-      for (int i = 20; i < BarcodeImage.MAX_HEIGHT; i++ )
+
+      for (int i = 20; i < BarcodeImage.MAX_HEIGHT; i++)
       {
          System.out.print("|");
          for (int j = 0; j < actualWidth; j++)
@@ -181,129 +183,128 @@ public class DataMatrix implements BarcodeIO
             else
             {
                System.out.print(WHITE_CHAR);
-            }  
+            }
          }
          System.out.println("|");
       }
    }
-   
+
    // this method resets the BarcodeImage object with a new one.
    private void clearImage()
    {
       image = new BarcodeImage();
    }
-   
+
    // This method creates the outline for a barcode symbol
    // within the BarcodeImage object.
    private void createStarFrame(int height, int width)
    {
       int inImageHeight = BarcodeImage.MAX_HEIGHT - height - 1;
-      for(int y = BarcodeImage.MAX_HEIGHT; y > 0; --y)
+      for (int y = BarcodeImage.MAX_HEIGHT; y > 0; --y)
       {
-         for(int x = 0; x <= width+1; ++x)
+         for (int x = 0; x <= width + 1; ++x)
          {
-            //left bar
-            if(y > inImageHeight && x == 0)
+            // left bar
+            if (y > inImageHeight && x == 0)
             {
                image.setPixel(y, x, true);
             }
-            
-            //bottom bar
-            if(y == BarcodeImage.MAX_HEIGHT-1 && x < width+1)
+
+            // bottom bar
+            if (y == BarcodeImage.MAX_HEIGHT - 1 && x < width + 1)
             {
                image.setPixel(y, x, true);
             }
-            
-            //top bar
-            if(y == inImageHeight+1 && x < width && x % 2 != 0)
+
+            // top bar
+            if (y == inImageHeight + 1 && x < width && x % 2 != 0)
             {
-               image.setPixel(y, x+1, true);
+               image.setPixel(y, x + 1, true);
             }
-            
-            //right bar
-            if(x == width+1 && y%2 != 0)
+
+            // right bar
+            if (x == width + 1 && y % 2 != 0)
             {
                image.setPixel(y, x, true);
             }
          }
       }
    }
-   
+
    // This helper method writes a character argument to a column.
    private boolean WriteCharToCol(int col, int code)
    {
-      while(code > 0)
+      while (code > 0)
       {
-         if(code >= 128)
+         if (code >= 128)
          {
-            code = code-128;
-            image.setPixel(BarcodeImage.MAX_HEIGHT-9, col, true);
+            code = code - 128;
+            image.setPixel(BarcodeImage.MAX_HEIGHT - 9, col, true);
          }
-         if(code >= 64)
+         if (code >= 64)
          {
-            code = code-64;
-            image.setPixel(BarcodeImage.MAX_HEIGHT-8, col, true);
+            code = code - 64;
+            image.setPixel(BarcodeImage.MAX_HEIGHT - 8, col, true);
          }
-         if(code >= 32)
+         if (code >= 32)
          {
-            code = code-32;
-            image.setPixel(BarcodeImage.MAX_HEIGHT-7, col, true);
+            code = code - 32;
+            image.setPixel(BarcodeImage.MAX_HEIGHT - 7, col, true);
          }
-         if(code >= 16)
+         if (code >= 16)
          {
-            code = code-16;
-            image.setPixel(BarcodeImage.MAX_HEIGHT-6, col, true);
+            code = code - 16;
+            image.setPixel(BarcodeImage.MAX_HEIGHT - 6, col, true);
          }
-         if(code >= 8)
+         if (code >= 8)
          {
-            code = code-8;
-            image.setPixel(BarcodeImage.MAX_HEIGHT-5, col, true);
+            code = code - 8;
+            image.setPixel(BarcodeImage.MAX_HEIGHT - 5, col, true);
          }
-         if(code >= 4)
+         if (code >= 4)
          {
-            code = code-4;
-            image.setPixel(BarcodeImage.MAX_HEIGHT-4, col, true);
+            code = code - 4;
+            image.setPixel(BarcodeImage.MAX_HEIGHT - 4, col, true);
          }
-         if(code >= 2)
+         if (code >= 2)
          {
-            code = code-2;
-            image.setPixel(BarcodeImage.MAX_HEIGHT-3, col, true);
+            code = code - 2;
+            image.setPixel(BarcodeImage.MAX_HEIGHT - 3, col, true);
          }
-         if(code >= 1)
+         if (code >= 1)
          {
-            code = code-1;
-            image.setPixel(BarcodeImage.MAX_HEIGHT-2, col, true);
+            code = code - 1;
+            image.setPixel(BarcodeImage.MAX_HEIGHT - 2, col, true);
          }
       }
       return false;
    }
-   
 
    // this method creates a barcode from the private text variable.
    public boolean generateImageFromText()
    {
       clearImage();
-      
+
       int width = text.length();
-      int height = 10; 
+      int height = 10;
       createStarFrame(height, width);
-      
-      for(int x = 0; x < text.length(); ++x)
+
+      for (int x = 0; x < text.length(); ++x)
       {
          int ascii = text.charAt(x);
-         WriteCharToCol(x+1, ascii);
+         WriteCharToCol(x + 1, ascii);
       }
       actualWidth = computeSignalWidth();
       return false;
    }
-   
+
    // this method sets the private text variable
    // based on BarcodeImage data
    public boolean translateImageToText()
    {
       int ascii = 0;
       String newText = "";
-      
+
       if (image != null)
       {
          for (int i = 1; i < actualWidth - 1; i++)
@@ -344,10 +345,10 @@ public class DataMatrix implements BarcodeIO
                   {
                      ascii += 1;
                   }
-                     
+
                }
             }
-            newText += (char)ascii;
+            newText += (char) ascii;
             ascii = 0;
          }
          text = newText;
@@ -362,27 +363,3 @@ public class DataMatrix implements BarcodeIO
       System.out.println(text);
    }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

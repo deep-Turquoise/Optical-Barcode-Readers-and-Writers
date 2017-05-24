@@ -76,6 +76,7 @@ public class main
       dm.displayImageToConsole();
    }   
 }
+
 package barcodePack;
 
 public class BarcodeImage implements Cloneable
@@ -193,24 +194,7 @@ public class BarcodeImage implements Cloneable
    }
 
 }
-package barcodePack;
 
-import barcodePack.BarcodeImage;
-
-public interface BarcodeIO
-{
-   public boolean scan(BarcodeImage bc);
-
-   public boolean readText(String text);
-
-   public boolean generateImageFromText();
-
-   public boolean translateImageToText();
-
-   public void displayTextToConsole();
-
-   public void displayImageToConsole();
-}
 package barcodePack;
 
 import barcodePack.BarcodeIO;
@@ -577,7 +561,26 @@ public class DataMatrix implements BarcodeIO
    }
 }
 
-----------------------------RUN 1----------------------------
+package barcodePack;
+
+import barcodePack.BarcodeImage;
+
+public interface BarcodeIO
+{
+   public boolean scan(BarcodeImage bc);
+
+   public boolean readText(String text);
+
+   public boolean generateImageFromText();
+
+   public boolean translateImageToText();
+
+   public void displayTextToConsole();
+
+   public void displayImageToConsole();
+}
+
+----------------------RUN 1-----------------------
 CSUMB CSIT online program is top notch.
 -------------------------------------------
 |* * * * * * * * * * * * * * * * * * * * *|
@@ -614,4 +617,4 @@ Otterbots!
 |**   *** * *|
 |**  *  * ** |
 |************|
---------------------------------END RUN-------------------------
+--------------------END RUN------------------------

@@ -1,4 +1,5 @@
 package barcodePack;
+
 import barcodePack.BarcodeImage;
 
 public interface BarcodeIO

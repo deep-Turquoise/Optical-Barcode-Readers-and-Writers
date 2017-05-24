@@ -23,7 +23,7 @@ public class BarcodeImage implements Cloneable
    public BarcodeImage(String[] str_data)
    {
       this(); // start by creating new empty array
-      
+
       if (checkSize(str_data))
       {
          for (int i = 0; i < str_data.length; i++)
@@ -33,11 +33,11 @@ public class BarcodeImage implements Cloneable
                if (str_data[i].charAt(j) == '*')
                {
                   image_data[MAX_HEIGHT - str_data.length + i][j] = true;
-               }  
+               }
             }
          }
-      } 
-      
+      }
+
       else
       {
          System.out.println("Data is not the right size");
@@ -61,8 +61,8 @@ public class BarcodeImage implements Cloneable
       }
       return false;
    }
-   
-   // helper method to make sure incoming data isn't too large 
+
+   // helper method to make sure incoming data isn't too large
    private boolean checkSize(String[] data) // Optional Method
    {
       if (data.length < MAX_HEIGHT && data[0].length() < MAX_WIDTH)
@@ -76,7 +76,7 @@ public class BarcodeImage implements Cloneable
    public void displayToConsole() // Optional Method
    {
       System.out.println("---------x---------x---------x---------x---------x---------x");
-      for (int i = 0; i < MAX_HEIGHT; i++ )
+      for (int i = 0; i < MAX_HEIGHT; i++)
       {
          System.out.print("|");
          for (int j = 0; j < MAX_WIDTH; j++)
@@ -88,23 +88,24 @@ public class BarcodeImage implements Cloneable
             else
             {
                System.out.print(" ");
-            }  
+            }
          }
          System.out.println();
       }
       System.out.println("---------x---------x---------x---------x---------x---------x");
    }
-   
-   // this satisfies the "implements Cloneable" and creates and returns a copy of the called 
+
+   // this satisfies the "implements Cloneable" and creates and returns a copy
+   // of the called
    // instance variable
    public BarcodeImage clone() throws CloneNotSupportedException
    {
-      BarcodeImage newImage = (BarcodeImage)super.clone();
+      BarcodeImage newImage = (BarcodeImage) super.clone();
       boolean thisPixel;
-      
+
       for (int i = 0; i < MAX_HEIGHT; i++)
       {
-         for (int k = 0; k <MAX_WIDTH; k++)
+         for (int k = 0; k < MAX_WIDTH; k++)
          {
             thisPixel = image_data[i][k];
             newImage.setPixel(i, k, thisPixel);
@@ -112,5 +113,5 @@ public class BarcodeImage implements Cloneable
       }
       return newImage;
    }
-   
+
 }
