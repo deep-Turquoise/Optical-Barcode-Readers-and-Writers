@@ -320,7 +320,6 @@ public class DataMatrix implements BarcodeIO
                      
                }
             }
-            System.out.println(ascii);
             newText += (char)ascii;
             ascii = 0;
          }
